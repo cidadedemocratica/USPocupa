@@ -220,13 +220,13 @@ h3 {
 
 #logo_e_cidade_corrente h1#logo a,
 #logo_e_cidade_corrente h1#logo a:visited {
-  background: transparent url(../images/logo_cidade_meocratica.png) no-repeat;
+  background: transparent url(../images/logo_uspocupa.png) no-repeat left center;
   text-decoration: none;
   color: #000;
   text-indent: -9000px;
   overflow: hidden;
   width: 313px;
-  height: 102px;
+  height: 90px;
   display: block;
   padding-left: 5px;
 }
@@ -269,6 +269,10 @@ text-indent:-9000px;
 #bots_acao li {
   height: 50px;
   margin-left: 28px;
+}
+
+#bots_acao li:last-child {
+  height: 40px;
 }
 
 #link_novo_problema {
