@@ -30,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Perfil do usuário: dados pessoais, local, avatar, tópicos, comentários, funcionários, etc.
   map.perfil "/perfil/:id", :controller => "users", :action => "show", :requirements => { :id => apenas_numeros }
-  map.perfil_ning "/perfil_ning/:id", :controller => "users", :action => "show_ning", :requirements => { :id => apenas_numeros }
   map.perfil_rss "/perfil/:id.:format", :controller => "users", :action => "show", :requirements => { :id => apenas_numeros }
   map.perfil_json "/perfil/:id.:format", :controller => "users", :action => "show", :requirements => { :id => apenas_numeros }
   map.perfil_mensagem "/perfil/:id/mensagem", :controller => "users", :action => "mensagem", :requirements => { :id => apenas_numeros }
