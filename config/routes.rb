@@ -44,25 +44,6 @@ ActionController::Routing::Routes.draw do |map|
   map.descadastrar "/perfil/descadastrar", :controller => "users", :action => "descadastrar"
   map.confirma_descadastro "/perfil/confirma_descadastro", :controller => "users", :action => "confirma_descadastro"
 
-  # Busca do Google
-  map.busca_google "/busca-google", :controller => "busca", :action => "index"
-
-  # Bugigangas
-  map.selos_novo "/bugigangas/selos", :controller => "bugigangas", :action => "selos"
-
-  # Tour
-  map.tour "/tour", :controller => "home", :action => "tour"
-
-  # Meu Observatório
-  map.novo_observatorio "/meu-observatorio/novo", :controller => "observatorios", :action => "new"
-  map.criar_observatorio "/meu-observatorio/criar", :controller => "observatorios", :action => "create"
-  map.editar_observatorio "/meu-observatorio/editar", :controller => "observatorios", :action => "edit"
-  map.salvar_observatorio "/meu-observatorio/salvar", :controller => "observatorios", :action => "salvar"
-  map.observatorio_comentarios "/meu-observatorio/comentarios/:page", :controller => "observatorios", :action => "comentarios", :page => nil
-  map.observatorio_apoios "/meu-observatorio/apoios/:page", :controller => "observatorios", :action => "apoios", :page => nil
-  map.observatorio "/meu-observatorio/:page", :controller => "observatorios", :action => "index", :page => nil
-  map.connect "/meu-observatorio/:action/:id", :controller => "observatorios"
-
   #=====================================================#
   #   URLS dos USUÁRIOS (atenção: N Usuários, listas...)
   #=====================================================#
