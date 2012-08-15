@@ -13,46 +13,6 @@ ActionController::Routing::Routes.draw do |map|
   apenas_letras  = Regexp.new('[a-zA-Z-]+')
   apenas_numeros = Regexp.new('[0-9]+')
 
-  #=================================================#
-  #  ÁREA Administrativa
-  #=================================================#
-  map.admin "/admin", :controller => "admin/painel"
-  map.namespace :admin do |admin|
-    admin.resources :users, :member => {
-                                :observatorio_mail => :get,
-                                :mudartipo => :get,
-                                :mudartipo_post => :post,
-                                :mudarstate => :get,
-                                :mudarstate_post => :post,
-                                :banir => :get
-                              },
-                             :collection => {
-                                :historico_de_logins => :get
-                             }
-    admin.resources :bairros
-    admin.resources :cidades, :member => {
-                                :maisbairros => :get,
-                                :novosbairros => :post
-                              }
-    admin.resources :estados, :member => {
-                                :maiscidades => :get,
-                                :novascidades => :post
-                              }
-    admin.resources :tags, :collection => {
-                             :livesearch => :post,
-                             :maistags => :get,
-                             :novastags => :post,
-                             :transferencia => :get,
-                             :transferencia_post => :post
-                           }
-    admin.resources :topicos, :member => {
-                                :comment_destroy => :post
-                              }
-    admin.resources :configuracoes
-    admin.resources :comentarios
-    admin.resources :relatorios
-  end
-
   #=============================================================================================#
   #  Aplicação para o USUÁRIO: Login, logout, cadastro, confirmação, perfil, observatorio etc.
   #=============================================================================================#
