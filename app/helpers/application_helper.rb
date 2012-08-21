@@ -38,7 +38,9 @@ module ApplicationHelper
       else
         max_count = tags.sort_by{ |t| t.total.to_i }.last.total.to_f
       end
-      
+
+      max_count = 1.0 if max_count == 0.0
+
       tags.sort{ |b,a| b.name.downcase.remover_acentos <=> a.name.downcase.remover_acentos }.each do |tag|
         if options[:relevancia]
           index = ((tag.relevancia.to_f / max_count.to_f) * (classes.size - 1)).to_i
