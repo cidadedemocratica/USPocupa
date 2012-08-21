@@ -4,25 +4,25 @@ class HomeController < ApplicationController
 
   # Ante sala do site
   def index
-    @cidades = Cidade.mais_ativas(:order => "cidades.relevancia DESC",
-                                  :limit => @settings["home_cloud_items"].to_i).sort_by { |c| c.nome }
-    @tags = Tag.do_contexto(:pais => nil,
+    @universidades = Tag.todas_universidades_usp
+    @tags = Tag.do_contexto(:pais => Pais.find(1),
                             :estado => nil,
                             :cidade => nil,
                             :bairro => nil,
                             :topico_type => nil,
                             :ultimos_dias => nil,
                             :order => "tags.relevancia DESC",
-                            :limit => @settings["home_cloud_items"].to_i)
-    @usuarios = User.nao_admin.ativos.com_avatar.aleatorios.find(:all, :limit => 8)
-  
-    @topicos = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.id DESC", :limit => @settings["home_numero_topicos"].to_i)
-    @topicos_mais_comentados = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.comments_count DESC", :limit => @settings["home_numero_topicos"].to_i)
-    @topicos_mais_apoiados   = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.adesoes_count DESC", :limit => @settings["home_numero_topicos"].to_i)
-  
-    @apoios = Adesao.por_user_ativo.find(:all, :include => [:user, :topico], :order => "adesoes.created_at DESC", :limit => @settings["home_numero_apoios"].to_i)
-    @seguidores = Seguido.por_user_ativo.find(:all, :include => [:topico], :order => "seguidos.created_at DESC", :limit => @settings["home_numero_seguidores"].to_i)
-    @comentarios = Comentario.de_user_ativo.find(:all, :order => "comments.id DESC", :limit => @settings["home_numero_comentarios"].to_i)
+                            :limit => @settings["home_cloud_items"].to_i,
+                            :site => "uspocupa")
+
+    @topicos = Topico.de_user_ativo.do_site('uspocupa').find(:all, :include => [:locais],
+      :order => "topicos.id DESC", :limit => @settings["home_numero_topicos"].to_i)
+    @topicos_mais_comentados = Topico.de_user_ativo.do_site('uspocupa').find(:all, :include => [:locais],
+      :order => "topicos.comments_count DESC", :limit => @settings["home_numero_topicos"].to_i)
+    @topicos_mais_apoiados = Topico.de_user_ativo.do_site('uspocupa').find(:all, :include => [:locais],
+      :order => "topicos.adesoes_count DESC", :limit => @settings["home_numero_topicos"].to_i)
+    @apoios = Adesao.por_user_ativo.do_site('uspocupa').find(:all, :include => [:user, :topico],
+      :order => "adesoes.created_at DESC", :limit => @settings["home_numero_apoios"].to_i)
   end
   
   # Home da cidade
@@ -73,9 +73,6 @@ class HomeController < ApplicationController
   def termos_de_uso
   end
   
-  def tour
-  end
-
   def ajuda
   end
 
