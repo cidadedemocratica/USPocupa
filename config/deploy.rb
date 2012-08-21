@@ -33,22 +33,14 @@ namespace :deploy do
 
   task :setup_config, :roles => :app do
     sudo "ln -nfs #{current_path}/config/apache.conf /etc/apache2/sites-available/#{application}"
-    run "mkdir -p #{shared_path}/config"
-    run "mkdir -p #{shared_path}/uploaded"
-    run "mkdir -p #{shared_path}/apache"
-    put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"
-    put File.read("config/.htaccess"), "#{shared_path}/apache/.htaccess"
-    put File.read("config/email.example.yml"), "#{shared_path}/config/email.yml"
-    puts "Now edit the config files in #{shared_path}."
   end
   after "deploy:setup", "deploy:setup_config"
 
   task :symlink_config, :roles => :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{deploy_to}/../cidadedemocratica/shared/config/database.yml #{release_path}/config/database.yml"
     run "rm -rf #{release_path}/public/images/uploaded"
-    run "ln -nfs #{shared_path}/uploaded #{release_path}/public/images/uploaded"
-    run "ln -nfs #{shared_path}/apache/.htaccess #{release_path}/public/.htaccess"
-    run "ln -nfs #{shared_path}/config/email.yml #{release_path}/config/email.yml"
+    run "ln -nfs #{deploy_to}/../cidadedemocratica/shared/uploaded #{release_path}/public/images/uploaded"
+    run "ln -nfs #{deploy_to}/../cidadedemocratica/shared/config/email.yml #{release_path}/config/email.yml"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 
