@@ -59,6 +59,9 @@ class TopicosController < ApplicationController
   verify :params => :topico_type,
          :only => :new
   def new
+    @universidades = Tag.todas_universidades_usp
+    @universidades = [''] + @universidades
+
     if params[:topico_type] == "problema"
       @topico = Problema.new(params[:topico])
       session[:type] = "Problema"
@@ -100,6 +103,7 @@ class TopicosController < ApplicationController
     @topico = session[:novo_topico]
     if logged_in?
       @topico.user = current_user
+      @topico.site = 'uspocupa'
       if @topico.save
         current_user.tag(@topico, :with => @topico.tags_com_virgula, :on => :tags)
         session[:novo_topico] = nil
@@ -126,6 +130,9 @@ class TopicosController < ApplicationController
   def show
     @topico = Topico.de_user_ativo.slugged_find(params[:topico_slug])
     if @topico
+      if @topico.site != 'uspocupa'
+        redirect_to "http://www.cidadedemocratica.org.br/topico/#{params[:topico_slug]}?from=uspocupa"
+      end
       @links = @topico.links.find(:all, :limit => 5, :order => "id DESC")
       @comentarios = @topico.comment_threads.find(:all, :include => [:user], :order => "id DESC")
       @topicos_relacionados = @topico.relacionados
@@ -388,6 +395,14 @@ class TopicosController < ApplicationController
   #   * Um usuário não-logado sem cadastro
   def novo_topico
     if request.post?
+      if @topico.tags_com_virgula
+        @topico.tags_com_virgula = "uspocupa, #{@topico.tags_com_virgula}"
+      else
+        @topico.tags_com_virgula = "uspocupa"
+      end
+
+      @topico.tags_com_virgula += ", #{params[:universidade]}" if params[:universidade]
+
       @topico.tags_com_virgula = @topico.tags_com_virgula.downcase # Força lowercase para as tags
       if @topico.valid?
         session[:novo_topico] = @topico
@@ -472,8 +487,7 @@ class TopicosController < ApplicationController
     tt = params[:topico] unless params[:topico].blank?
     
     @tags = Tag.do_contexto(:topico_type => tt,
-                            :limit => 60)
-    
+                            :limit => 60, :site => 'uspocupa')
   end
 
   def filtro_de_tags
