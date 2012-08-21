@@ -365,6 +365,9 @@ class Topico < ActiveRecord::Base
       {}
     end
   }
+  named_scope :do_site, lambda { |site|
+    {:conditions => "topicos.site = '#{site}'"}
+  }
 
 
 

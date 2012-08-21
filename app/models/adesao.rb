@@ -45,6 +45,10 @@ class Adesao < ActiveRecord::Base
     :select => "count(*) AS total, DATE(adesoes.created_at) AS dia",
     :group  => "DAY(adesoes.created_at), MONTH(adesoes.created_at), YEAR(adesoes.created_at)"
   }
+  named_scope :do_site, lambda { |site|
+    {:include => [:topico],
+    :conditions => "topicos.site = '#{site}'"}
+  }
   
   # Dada uma cidade (e outros params), retornar
   # contagem de comentarios
