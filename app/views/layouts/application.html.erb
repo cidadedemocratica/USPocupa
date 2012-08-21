@@ -6,11 +6,7 @@
   </head>
 
   <body class="<%= controller_name %> <%= controller_name %>_<%= action_name %>">
-    <% if params[:controller] == "home" %>
-      <%= render :partial => "layouts/cabecalho_ante_sala", :locals => { :cidade_corrente => @cidade_corrente, :estados => @estados } %>
-    <% else %>
-      <%= render :partial => "layouts/cabecalho", :locals => { :cidade_corrente => @cidade_corrente } %>
-    <% end %>
+    <%= render :partial => "layouts/cabecalho", :locals => { :cidade_corrente => @cidade_corrente } %>
 
     <div id="conteudo" class="container_16 rounded clearfix">
       <div class="grid_16">

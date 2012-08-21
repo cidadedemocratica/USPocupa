@@ -1,8 +1,7 @@
 <div id="rodape" class="container_16 rounded clearfix">
   <div class="grid_10 alpha">
     <div id="caixa_rodape_esq">
-      <h3 id="logo_rodape">CIDADE DEMOCRÁTICA</h3>
-      <p id="descricao_rodape">É uma plataforma de participação política, onde cidadãos e entidades podem se expressar, se comunicar e gerar mobilização para a construção de uma sociedade cada vez melhor.</p>
+      <p id="descricao_rodape">O #USPocupa é um projeto que pretende encontrar soluções para a cidade de São Paulo. As melhores propostas inscritas serão encaminhadas para os candidatos das eleições municipais!</p>
 
       <table>
         <tr>
@@ -25,9 +24,6 @@
               <li>
                 <%= link_to "Cadastre-se", cadastrar_url %>
               </li>
-              <!-- li>
-                <%= link_to "Bugigangas (NOVO!)", bugigangas_url %>
-              </li-->
               <li>
                 <%= link_to("Termos de uso", :controller => "home", :action => "termos_de_uso") %>
               </li>
@@ -37,63 +33,16 @@
               <li>
                 <%= link_to("Ajuda", :controller => "home", :action => "ajuda") %>
               </li>
+              <li style="padding-top:20px">
+                <h3 style="background: url(/images/logo_powered-by_cidadedemocratica-novo.png) no-repeat scroll 0 0 transparent;height:48px">&nbsp;</h3>
+              </li>
             </ul>
           </td>
         </tr>
       </table>
     </div>
   </div>
-<!-- Twitter Widget -->
-  <div class="grid_3 omega">
-
-<% if (RAILS_ENV=="production") -%>
-<script src="http://widgets.twimg.com/j/2/widget.js"></script>
-<script>
-new TWTR.Widget({
-  version: 2,
-  type: 'profile',
-  rpp: 3,
-  interval: 3000,
-  width: 315,
-  height: 300,
-  theme: {
-    shell: {
-      background: '#89c4d6',
-      color: '#ffffff'
-    },
-    tweets: {
-      background: '#ffffff',
-      color: '#787878',
-      links: '#0000ff'
-    }
-  },
-  features: {
-    scrollbar: false,
-    loop: false,
-    live: false,
-    hashtags: true,
-    timestamp: true,
-    avatars: false,
-    behavior: 'default'
-  }
-}).render().setUser('cidademocratica').start();
-</script>
-<% else -%>
-<p>Aqui vai o tal do Twitter... <br />
-   desligado no ambiente de DEV</p>
-<% end -%>
-    
-  </div>
 </div><!-- rodape -->
-<!-- when debugging... -->
-<table border="1" style="display:none">
-<% for header in request.env.select {|k,v| k.match("^HTTP.*")} %>
-  <tr>
-    <td><%=header[0].split('_',2)[1]%></td><td><%=header[1]%></td>    
-  </tr>
-<% end %>
-</table>
-<%= render :partial => "layouts/rodape_modal_automatico" %>
 <% if logged_in? -%>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
 sfHover = function() {

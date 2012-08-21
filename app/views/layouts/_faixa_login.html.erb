@@ -2,10 +2,6 @@
   <ul id="links_no_topo" class="clearfix">
 <% if logged_in? -%>
     <li><%= "Olá, #{current_user.nome.split.first.capitalize}!" %></li>
-<% if usuario_logado.admin? -%>
-    <li><%= link_to "Administrar", admin_url %></li>
-    <li><%= link_to "Cadastrar novo usuário", cadastrar_url %></li>
-<% else -%>
     <li class="meu_perfil">
       <%= link_to "Minhas Opções &#9660;", perfil_url(:id => current_user.id) %>
       <ul>
@@ -24,12 +20,8 @@
         <li>
           <%= link_to "Trocar senha...", :controller => "users", :action => "trocar_senha" %>
         </li>
-        <li>
-          <%= link_to "Selos", :controller => "users", :action => "selos" %>
-        </li>
       </ul>
     </li>
-<% end -%>
     <li><%= link_to "Logout", logout_url %></li>
 <% else -%>
     <li><%= link_to "Cadastre-se", cadastrar_url %></li>

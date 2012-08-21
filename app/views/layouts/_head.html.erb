@@ -33,11 +33,7 @@ if @topico
   end
 end -%><meta name="description" content="<%= "#{truncate(escape_once(description), :length => 200)}" %>" />
 
-  <% if request.env["HTTP_HOST"].to_s.include?("cidadonos") -%>
-  <title>Cidadonos</title>
-  <% else -%>
-  <title><%= title :site => "#{cidade} Cidade Democrática" %></title>
-  <% end -%>
+  <title>USPOcupa</title>
   <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon" />
 <% bundle :name => "default_bundle", :bundle_fu => ambiente_producao? do -%>
   <%= stylesheet_link_tag "960/reset" %>
