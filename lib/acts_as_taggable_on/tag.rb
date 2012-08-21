@@ -62,6 +62,7 @@ WHERE #{condicoes.join(' AND ')}
         ) t GROUP BY t.tag_id
       ) y ON z.id = y.tag_id
       WHERE z.id <> #{tag.id}
+      AND z.name NOT IN (#{self.default_tags})
       ORDER BY y.total DESC
 MYSTRING
       return Tag.find_by_sql(sql_string)
@@ -83,6 +84,7 @@ MYSTRING
     condicoes << "locais.cidade_id = '#{options[:cidade].id}'" if options[:cidade]
     condicoes << "locais.bairro_id = '#{options[:bairro].id}'" if options[:bairro]
     condicoes << "topicos.created_at >= '#{options[:ultimos_dias].to_i.days.ago.to_s(:db)}'" if options[:ultimos_dias]
+    condicoes << "topicos.site = '#{options[:site]}'" if options[:site]
     
     #sql_string_tag   = options[:tag] ? " AND tag_id = #{options[:tag].id} " : ""
     sql_string_tag   = ""
@@ -117,6 +119,7 @@ MYSTRING
       GROUP BY b.tag_id
     ) z
     ON (z.tag_id = tags.id)
+    AND tags.name NOT IN (#{self.default_tags})
     ORDER BY #{sql_string_order}
     #{sql_string_limit}
 MYSTRING
@@ -160,6 +163,36 @@ MYSTRING
     #{sql_string_limit}
 MYSTRING
     return Tag.find_by_sql(sql_string)
+  end
+
+  def self.universidades_usp
+    [:EACH, :ECA, :EEFE, :EE, :Poli, :FAU,
+     :FCF, :FD, :FEA, :FE, :FFLCH, :FM, :FMVZ,
+     :FO, :FSP, :IAG, :IB, :ICB, :IEE, :IEA,
+     :IEB, :IF, :IGc, :IME, :IMT, :IP, :IQ, :IRI,
+     :IO]
+  end
+
+  def self.todas_universidades_usp
+    conditions = ""
+    self.universidades_usp.each_with_index do |universidade, i|
+      conditions += "name = '#{universidade}'"
+      conditions += " OR " unless i == 28
+    end
+    Tag.all(:conditions => conditions)
+  end
+
+  def self.default_tags
+    universidades = ""
+
+    default_tags = ['uspocupa'] + self.universidades_usp
+    
+    default_tags.each_with_index do |u, i|
+      universidades += "'#{u}'"
+      universidades += ',' unless i == default_tags.count - 1
+    end
+
+    universidades
   end
 
 end
