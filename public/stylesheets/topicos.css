@@ -681,6 +681,7 @@ span.proposta { color:#82CC40; }
 }
 .escondido { display: none; }
 ul#ambitos { 
+  height: 365px;
   float:left;
   margin:0 100px 0 0px;
   font-size:32px;
