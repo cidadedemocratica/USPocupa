@@ -1,6 +1,30 @@
 /* Página de entrada da cidade (ver controller Home.cidade)
 -----------------------------------------------------------------------------
 */
+.infografico {
+  background: url("../images/infografico_home.jpg") no-repeat;
+  height: 506px;
+  margin-bottom: 20px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.infografico h2, .infografico ol {
+  display: none;
+}
+
+.infografico .participe {
+  position: absolute;
+  height: 51px;
+  width: 177px;
+  display: block;
+  bottom: 32px;
+  left: 386px;
+  overflow: hidden;
+  text-indent: -999em;
+}
+
 h1 {  margin-bottom:5px; }
 #bairros li { list-style: none; margin-left: 0; }
 
