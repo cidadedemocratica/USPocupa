@@ -22,6 +22,10 @@
     </li>
     <% if (controller.action_name != "edit") -%>
     <li>
+      <%= label_tag :universidade, "Universidade" %>
+      <%= select_tag(:universidade, options_for_select(@universidades)) %>
+    </li>
+    <li>
       <%= label_tag :tags, "Tags" %>
       <span class="ajuda">
         Indique os <b>temas</b> relacionados a esta questão, separando-os com <b>vírgula</b>.<br />
@@ -36,7 +40,7 @@
                                           :tokens => ",",
                                           :min_chars => 2
                                         } %><br />
-      <% if @tags -%>
+      <% if @tags && !@tags.empty? -%>
       <span class="ajuda">Ou escolha clicando nos <b>temas mais populares</b> listados abaixo:</span>
       <div id="populares" class="cloud">
         <% tag_cloud(@tags, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5)) do |tag, c| -%>

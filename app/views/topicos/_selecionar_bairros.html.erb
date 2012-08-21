@@ -1,34 +1,17 @@
-<div id="seletor_de_bairros" <%= defineAmbito("local", @topico.locais, ['class="escondido clearfix"','class="clearfix"']) %>>
+<div id="seletor_de_bairros" <%= defineAmbito("local", @topico.locais, ['class="clearfix"']) %>>
   <p><b>a) Escolha o estado primeiramente; a seguir, escolha a cidade;<br />
         b) Inclua apenas os bairros referentes a seu tópico.</b></p>
   <div id="estado_cidade_wrapper">
-  <%= select :estado, :id, [["escolha um estado...",nil]] + Estado.find(:all, :order => "abrev ASC").collect { |e| ["#{e.abrev} - #{e.nome}", e.id] } %>
-  <%= observe_field "estado_id", 
-                    :url => { 
-                      :controller => "locais", 
-                      :action => "cidades_options_for_select"
-                    },
-                    :with => "'estado_id='+value+'&first_option=1'",
-                    :update => "cidade_id",
-                    :before => "$('local_spinner').show();",
-                    :complete => "$('local_spinner').hide();" -%>
-  <%= select :cidade, :id, [] %>
-  <%= observe_field "cidade_id", 
-                    :url => { 
-                      :controller => "locais", 
-                      :action => "li_bairros"
-                    },
-                    :with => "cidade_id",
-                    :update => "ul_bairros",
-                    :before => "$('local_spinner').show();",
-                    :complete => "$('local_spinner').hide();" -%>
-  <span id="local_spinner" style="display: none;"><%= image_tag("spinners/spinner.gif") %></span>
+  <% estado = Estado.find_by_abrev('SP') %>
+  <%= select :estado, :id, [["#{estado.abrev} - #{estado.nome}", estado.id]] %>
+  <% cidade = Cidade.do_estado(estado.id).find_by_nome('São Paulo') %>
+  <%= select :cidade, :id, [[cidade.nome, cidade.id]] %>
   </div>
 
   <p id="label_local">Bairros disponíveis <span style="margin-left:185px">Bairros incluídos</span></p>
   
   <ul id="ul_bairros" class="bairros_a_selecionar">
-  <% @bairros = [] -%>
+  <% @bairros = Bairro.da_cidade(cidade.id).find(:all, :order => "nome ASC") -%>
   <%= render :partial => "locais/li_bairros_loop",
              :locals => {
                :bairros => @bairros,
