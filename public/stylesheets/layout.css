@@ -2,7 +2,7 @@
 
 body {
   font-family: "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-  background: #9AE4E8 url(../images/fundo_cd.png) no-repeat fixed left top;
+  background: #fff url(../images/fundo_cd.jpg) fixed repeat -170px 0;
   font-size: 14px;
   line-height: 20px;
   color: #333;
