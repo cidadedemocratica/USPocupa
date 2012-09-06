@@ -157,6 +157,9 @@ class TopicosController < ApplicationController
           tmp = Local.new(converter_params_to_hash(local))
           @topico.locais << tmp if tmp.valid?
         end
+      else
+        tmp = Local.new({ :bairro_id => nil, :pais_id => 1, :cidade_id => 1, :estado_id => 1 })
+        @topico.locais << tmp if tmp.valid?
       end
       # Se passou na validacao de locais...
       if @topico.valid?
