@@ -1,8 +1,8 @@
 class Mailer < ActionMailer::Base
   helper :application
-  SITE_DOMAIN_FOR_LINKS = "www.cidadedemocratica.org.br"
+  SITE_DOMAIN_FOR_LINKS = "participe.uspocupa.org.br"
   SITE_DOMAIN_FOR_LINKS = "200.207.40.205:9999" if (RAILS_ENV == 'development')
-  ADMIN_NAME_AND_EMAIL  = "Administrador do Cidade Democrática <ryband@uol.com.br>"
+  ADMIN_NAME_AND_EMAIL  = "Administrador do Cidade Democrática <cd@cidadedemocratica.org.br>"
 
   protected
 
